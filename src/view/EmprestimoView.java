@@ -19,13 +19,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -33,7 +26,6 @@ import model.Biblioteca;
 import model.Emprestimo;
 import model.Exemplar;
 import model.Filme;
-import model.Item;
 import model.Livro;
 import model.Revista;
 import model.Software;
@@ -148,10 +140,6 @@ public class EmprestimoView extends javax.swing.JFrame {
         lblBuscarItem = new javax.swing.JLabel();
         btnBuscarItem = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        lblNomeUsuario = new javax.swing.JLabel();
-        lblNomeItem = new javax.swing.JLabel();
-        txtNomeUsuario = new javax.swing.JTextField();
-        txtTituloItem = new javax.swing.JTextField();
         btnEmprestrar = new javax.swing.JButton();
         lblEmprestimo = new javax.swing.JLabel();
         lblTipoUsuario = new javax.swing.JLabel();
@@ -332,10 +320,6 @@ public class EmprestimoView extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblNomeUsuario.setText("Usuario");
-
-        lblNomeItem.setText("Item");
-
         btnEmprestrar.setText("Emprestar");
         btnEmprestrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,34 +332,16 @@ public class EmprestimoView extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNomeUsuario)
-                    .addComponent(lblNomeItem))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
-                    .addComponent(txtTituloItem))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(351, 351, 351)
                 .addComponent(btnEmprestrar)
-                .addGap(58, 58, 58))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNomeUsuario)
-                    .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNomeItem)
-                    .addComponent(txtTituloItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(btnEmprestrar)
-                .addContainerGap())
+                .addGap(16, 16, 16))
         );
 
         lblEmprestimo.setFont(new java.awt.Font("Lucida Grande", 3, 25)); // NOI18N
@@ -446,8 +412,8 @@ public class EmprestimoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -506,32 +472,31 @@ public class EmprestimoView extends javax.swing.JFrame {
 
     private void btnEmprestrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmprestrarActionPerformed
         Exemplar exemplar = new Exemplar();
-
+        
         int rowItem = tblItem.getSelectedRow();
+        if (rowItem == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selectione um item da tabela para ser emprestado");
+            return;
+        }
         if (rdLivro.isSelected()) {
             LivroTableModel livroModel = (LivroTableModel) tblItem.getModel();
             Livro livro = livroModel.getLivro(rowItem);
-            txtTituloItem.setText(livro.getTitulo());
             exemplar = livro.getExemplarDisponivel();
         }
         if (rdRevista.isSelected()) {
             RevistaTableModel revistaModel = (RevistaTableModel) tblItem.getModel();
             Revista revista = revistaModel.getRevista(rowItem);
-            txtTituloItem.setText(revista.getTitulo());
             exemplar = revista.getExemplarDisponivel();
         }
         if (rdFilme.isSelected()) {
             FilmeTableModel filmeModel = (FilmeTableModel) tblItem.getModel();
             Filme filme = filmeModel.getFilme(rowItem);
-            txtTituloItem.setText(filme.getTitulo());
             exemplar = filme.getExemplarDisponivel();
         }
         if (rdSoftware.isSelected()) {
             SoftwareTableModel softwareModel = (SoftwareTableModel) tblItem.getModel();
             Software software = softwareModel.getSoftware(rowItem);
-            txtTituloItem.setText(software.getTitulo());
             exemplar = software.getExemplarDisponivel();
-
         }
 
         if (exemplar == null) {
@@ -540,9 +505,13 @@ public class EmprestimoView extends javax.swing.JFrame {
         }
 
         int rowUsuario = tblUsuario.getSelectedRow();
+        if (rowUsuario == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selectione um usuário da tabela para ser feito o emprestimo");
+            return;
+        }
         UsuarioTableModel usuarioModel = (UsuarioTableModel) tblUsuario.getModel();
         Usuario usuarioSelecionado = usuarioModel.getUsuario(rowUsuario);
-        txtNomeUsuario.setText(usuarioSelecionado.getNome());
+        
 
         Emprestimo emprestimo = new Emprestimo();
         emprestimo.setExemplar(exemplar);
@@ -559,7 +528,8 @@ public class EmprestimoView extends javax.swing.JFrame {
         EmprestimoFacade ef = new EmprestimoFacade();
         ef.edit(emprestimo);
 
-        JOptionPane.showMessageDialog(rootPane, "Emprestimo efetuado");
+        JOptionPane.showMessageDialog(rootPane, "Emprestimo efetuado para\n" + usuarioSelecionado.getNome() + "\n"
+                + "do item: " + exemplar.getItem().getTitulo() + "");
         btnBuscarItem.doClick();
 
     }//GEN-LAST:event_btnEmprestrarActionPerformed
@@ -627,8 +597,6 @@ public class EmprestimoView extends javax.swing.JFrame {
     private javax.swing.JLabel lblBuscarUsuario;
     private javax.swing.JLabel lblEmprestimo;
     private javax.swing.JLabel lblLogado;
-    private javax.swing.JLabel lblNomeItem;
-    private javax.swing.JLabel lblNomeUsuario;
     private javax.swing.JLabel lblNomeUsuarioLogado;
     private javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JMenu menuMenu;
@@ -640,7 +608,5 @@ public class EmprestimoView extends javax.swing.JFrame {
     private javax.swing.JTable tblUsuario;
     private javax.swing.JTextField txtBuscarItem;
     private javax.swing.JTextField txtBuscarUsuario;
-    private javax.swing.JTextField txtNomeUsuario;
-    private javax.swing.JTextField txtTituloItem;
     // End of variables declaration//GEN-END:variables
 }

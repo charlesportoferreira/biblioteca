@@ -81,38 +81,35 @@ public class Menu extends javax.swing.JFrame {
         if (!usuario.getCategoria().getTipo().equals("Funcionario")) {
             menuCadastrar.setVisible(false);
             menuEmprestimo.setVisible(false);
+        } else {
+            menuRenovar.setVisible(false);
+            btnReservar.setVisible(false);
         }
         lblTipoUsuario.setText(usuario.getCategoria().getTipo() + "(a)");
         lblNomeUsuario.setText(usuario.getNome());
 
         menuItemCadastroEmprestimo.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 new EmprestimoView(usuario).setVisible(true);
                 dispose();
             }
-
         });
 
         menuItemEmprestimo.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 new ListaEmprestimo(usuario).setVisible(true);
                 dispose();
             }
-
         });
-        
-        menuRenovarEmprestimo.addActionListener(new ActionListener() {
 
+        menuRenovarEmprestimo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Renovacao(usuario).setVisible(true);
                 dispose();
             }
-
         });
     }
 

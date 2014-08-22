@@ -6,14 +6,20 @@
 package view;
 
 import controller.EmprestimoTableModel;
+import controller.LivroTableModel;
 import facade.EmprestimoFacade;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import model.Biblioteca;
 import model.Emprestimo;
+import model.Livro;
 import model.Usuario;
 
 /**
@@ -21,7 +27,7 @@ import model.Usuario;
  * @author charleshenriqueportoferreira
  */
 public class Renovacao extends javax.swing.JFrame {
-    
+
     Usuario usuario;
     JMenuItem menuItemMenu;
     EmprestimoTableModel emprestimoModel;
@@ -42,19 +48,19 @@ public class Renovacao extends javax.swing.JFrame {
         buscarEmprestimos();
         setLocationRelativeTo(null);
         menuItemMenu.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Menu(usuario).setVisible(true);
                 dispose();
             }
-            
+
         });
     }
-    
+
     public Renovacao() {
         initComponents();
-        
+
     }
 
     /**
@@ -172,6 +178,11 @@ public class Renovacao extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnRenovar.setText("Renovar");
+        btnRenovar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRenovarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -227,10 +238,34 @@ public class Renovacao extends javax.swing.JFrame {
         Biblioteca.abrirLogin();
         this.dispose();
     }//GEN-LAST:event_btnLogoffActionPerformed
-    
-    private void buscarEmprestimos() {
+
+    private void btnRenovarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenovarActionPerformed
+
+        int rowItem = tblRenovacao.getSelectedRow();
+        if (rowItem == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um emprestimo da tabela");
+            return;
+        }
+        Emprestimo emprestimo = emprestimoModel.getEmprestimo(rowItem);
+        if (emprestimo.getMulta() != 0) {
+            JOptionPane.showMessageDialog(rootPane, "Este Item ja deveria ter sido devolvido."
+                    + "\n Impossível renovar"
+                    + "\n Você uma multa de " + emprestimo.getMulta() + " reais");
+            return;
+        }
+        Instant inst = emprestimo.getDataLimite().toInstant();
+        emprestimo.setDataLimite(Date.from(inst.plus(Duration.ofDays(usuario.getCategoria().getDiasEmprestimo()))));
+        emprestimo.setQtdRenovacoes(emprestimo.getQtdRenovacoes() + 1);
         EmprestimoFacade ef = new EmprestimoFacade();
-        List<Emprestimo> emprestimos = ef.findAllWithUsuario(this.usuario.getId().toString());
+        ef.edit(emprestimo);
+        JOptionPane.showMessageDialog(rootPane, "Item renovado por mais " + usuario.getCategoria().getDiasEmprestimo() + " dias");
+        buscarEmprestimos();
+    }//GEN-LAST:event_btnRenovarActionPerformed
+
+    private void buscarEmprestimos() {
+        emprestimoModel.limpar();
+        EmprestimoFacade ef = new EmprestimoFacade();
+        List<Emprestimo> emprestimos = ef.findAllWithUsuario(this.usuario.getId().toString(),"");
         emprestimoModel.addListaDeEmprestimo(emprestimos);
         tblRenovacao.setModel(emprestimoModel);
     }

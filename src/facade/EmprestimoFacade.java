@@ -30,18 +30,18 @@ public class EmprestimoFacade extends AbstractFacade<Emprestimo> {
         super(Emprestimo.class);
     }
 
-    public List<Emprestimo> findAllWithUsuario(String id) {
+    public List<Emprestimo> findAllWithUsuario(String id, String comandoComplementarSQL) {
         em = getEntityManager();
         Query query = em.createNativeQuery(
-                "select * from Emprestimo where usuario_id = " + id + "", Emprestimo.class);
+                "select * from Emprestimo where usuario_id = " + id + comandoComplementarSQL, Emprestimo.class);
         List<Emprestimo> result = query.getResultList();
         return result;
     }
 
-    public List<Emprestimo> findAllWithItem(String idbib) {
+    public List<Emprestimo> findAllWithItem(String idbib, String comandoComplementarSQL) {
         em = getEntityManager();
         Query query = em.createNativeQuery(
-                "select * from Emprestimo where exemplar_idbib = " + idbib + "", Emprestimo.class);
+                "select * from Emprestimo where exemplar_idbib = " + idbib + comandoComplementarSQL, Emprestimo.class);
         List<Emprestimo> result = query.getResultList();
         return result;
     }

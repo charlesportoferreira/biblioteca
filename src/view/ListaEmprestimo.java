@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import controller.EmprestimoTableModel;
@@ -11,8 +10,11 @@ import facade.EmprestimoFacade;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import model.Biblioteca;
 import model.Emprestimo;
 import model.Usuario;
@@ -26,14 +28,14 @@ public class ListaEmprestimo extends javax.swing.JFrame {
     JMenuItem menuItemMenu;
     Usuario usuario;
     EmprestimoTableModel emprestimoModel;
-    
-    
+
     /**
      * Creates new form ListaEmprestimo
+     *
      * @param usuario
      */
     public ListaEmprestimo(final Usuario usuario) {
-      
+
         this.usuario = usuario;
         initComponents();
         setLocationRelativeTo(null);
@@ -52,10 +54,10 @@ public class ListaEmprestimo extends javax.swing.JFrame {
 
         });
         emprestimoModel = new EmprestimoTableModel();
-        
+
     }
-    
-     public ListaEmprestimo() {
+
+    public ListaEmprestimo() {
         initComponents();
         bgSelecaoBusca.add(rdNomeUsuario);
         bgSelecaoBusca.add(rdTituloItem);
@@ -98,6 +100,7 @@ public class ListaEmprestimo extends javax.swing.JFrame {
         lblBusca = new javax.swing.JLabel();
         txtBusca = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        ckFinalizados = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         btnFinalizarEmprestimo = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -131,19 +134,20 @@ public class ListaEmprestimo extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(302, 302, 302)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTipoUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNomeUsuarioLogado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblLogado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLogoff)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblTipoUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNomeUsuarioLogado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblLogado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLogoff)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(312, 312, 312))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,9 +158,9 @@ public class ListaEmprestimo extends javax.swing.JFrame {
                     .addComponent(lblNomeUsuarioLogado)
                     .addComponent(lblTipoUsuario)
                     .addComponent(btnLogoff))
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -177,9 +181,9 @@ public class ListaEmprestimo extends javax.swing.JFrame {
         rdNomeUsuario.setSelected(true);
         rdNomeUsuario.setText("id do Usuario");
 
-        rdTituloItem.setText("idbib");
+        rdTituloItem.setText("idbib do exemplar");
 
-        lblBusca.setText("Busca");
+        lblBusca.setText("Busca: ");
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -188,49 +192,61 @@ public class ListaEmprestimo extends javax.swing.JFrame {
             }
         });
 
+        ckFinalizados.setText("Mostrar finalizados");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 907, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rdNomeUsuario)
-                .addGap(36, 36, 36)
-                .addComponent(rdTituloItem)
-                .addGap(334, 334, 334))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(309, 309, 309)
-                .addComponent(lblBusca)
-                .addGap(41, 41, 41)
-                .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(btnBuscar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(303, 303, 303)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(rdNomeUsuario)
+                        .addGap(36, 36, 36)
+                        .addComponent(rdTituloItem))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(lblBusca)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(37, 37, 37)
+                .addComponent(ckFinalizados)
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBusca)
                     .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdNomeUsuario)
-                    .addComponent(rdTituloItem))
+                    .addComponent(rdTituloItem)
+                    .addComponent(ckFinalizados))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(113, 113, 113))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnFinalizarEmprestimo.setText("Finalizar Emprestimo");
+        btnFinalizarEmprestimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarEmprestimoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -249,7 +265,7 @@ public class ListaEmprestimo extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        menuMenu.setText("File");
+        menuMenu.setText("Menu");
         jMenuBar1.add(menuMenu);
 
         setJMenuBar(jMenuBar1);
@@ -261,9 +277,9 @@ public class ListaEmprestimo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -273,7 +289,7 @@ public class ListaEmprestimo extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -288,21 +304,53 @@ public class ListaEmprestimo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoffActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-         List<Emprestimo> emprestimos;
-         EmprestimoFacade ef = new EmprestimoFacade();
-        if(rdNomeUsuario.isSelected()){
+        if (!txtBusca.getText().matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(rootPane, "Digite um código numérico no campo de busca");
+            return;
+        }
+        String comandoComplementarSQL;
+        if (!ckFinalizados.isSelected()) {
+            comandoComplementarSQL = " and finalizado = 0";
+        } else {
+            comandoComplementarSQL = "";
+        }
+
+        List<Emprestimo> emprestimos;
+        EmprestimoFacade ef = new EmprestimoFacade();
+        if (rdNomeUsuario.isSelected()) {
             emprestimoModel.limpar();
-            emprestimos = ef.findAllWithUsuario(txtBusca.getText());
+            emprestimos = ef.findAllWithUsuario(txtBusca.getText(), comandoComplementarSQL);
             emprestimoModel.addListaDeEmprestimo(emprestimos);
-        }else{
+        } else {
             emprestimoModel.limpar();
-            emprestimos = ef.findAllWithItem(txtBusca.getText());
+            emprestimos = ef.findAllWithItem(txtBusca.getText(), comandoComplementarSQL);
             emprestimoModel.addListaDeEmprestimo(emprestimos);
         }
-       
+
         tblEmprestimo.setModel(emprestimoModel);
-        
+
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnFinalizarEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarEmprestimoActionPerformed
+
+        int rowEmprestimo = tblEmprestimo.getSelectedRow();
+        if (rowEmprestimo == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um emprestimo na tabela");
+            return;
+        }
+        Emprestimo emprestimo = emprestimoModel.getEmprestimo(rowEmprestimo);
+        if (emprestimo.isFinalizado()) {
+            JOptionPane.showMessageDialog(rootPane, "Este emprestimo ja foi finalizado");
+            return;
+        }
+        emprestimo.setFinalizado(true);
+        emprestimo.setDataDevolucao(Date.from(Instant.now()));
+        emprestimo.getExemplar().setDisponivel(true);
+        EmprestimoFacade ef = new EmprestimoFacade();
+        ef.edit(emprestimo);
+        btnBuscar.doClick();
+        JOptionPane.showMessageDialog(rootPane, "Emprestimo Finalizado");
+    }//GEN-LAST:event_btnFinalizarEmprestimoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -344,6 +392,7 @@ public class ListaEmprestimo extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnFinalizarEmprestimo;
     private javax.swing.JButton btnLogoff;
+    private javax.swing.JCheckBox ckFinalizados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
