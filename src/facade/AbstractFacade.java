@@ -81,6 +81,17 @@ public abstract class AbstractFacade<T> {
         return result;
     }
 
+    public List<T> findAllEqualValue(String collumn, String value) {
+        EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root entity = cq.from(entityClass);
+        cq.select(entity).where(cb.equal(entity.get(collumn), value));
+        Query query = em.createQuery(cq);
+        List<T> result = query.getResultList();
+        return result;
+    }
+
     public List<T> findAllWithValue(String collumn1, String value1, String collumn2, String value2) {
 //        EntityManager em = getEntityManager();
 //        CriteriaBuilder cb = em.getCriteriaBuilder();

@@ -6,11 +6,23 @@
 package view;
 
 import controller.FilmeTableModel;
+import controller.ItemController;
 import controller.ItemTableModel;
 import controller.LivroTableModel;
+import controller.ReservaTableModel;
 import controller.RevistaTableModel;
 import controller.SoftwareTableModel;
+import facade.ReservaFacade;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.Instant;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import model.Biblioteca;
+import model.Item;
+import model.Reserva;
 import model.Usuario;
 
 /**
@@ -25,13 +37,16 @@ public class ListaReservas extends javax.swing.JFrame {
     RevistaTableModel modeloRevista;
     FilmeTableModel modeloFilme;
     SoftwareTableModel modeloSoftware;
+    ReservaTableModel reservaModel;
+    JMenuItem menuItemMenu;
 
     /**
      * Creates new form ListaReservas
      *
      * @param usuario
+     * @param item
      */
-    public ListaReservas(Usuario usuario) {
+    public ListaReservas(final Usuario usuario, Item item) {
         this.usuario = usuario;
         initComponents();
         itemModelo = new ItemTableModel();
@@ -39,6 +54,20 @@ public class ListaReservas extends javax.swing.JFrame {
         modeloRevista = new RevistaTableModel();
         modeloFilme = new FilmeTableModel();
         modeloSoftware = new SoftwareTableModel();
+        reservaModel = new ReservaTableModel();
+        buscarReservas(item);
+        tblBusca.setModel(modeloLivro);
+        setLocationRelativeTo(null);
+        lblTipoUsuario.setText(usuario.getCategoria().getTipo() + "(a)");
+        lblNomeUsuarioLogado.setText(usuario.getNome());
+//        menuItemMenu.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                new Menu(usuario).setVisible(true);
+//                dispose();
+//            }
+//
+//        });
     }
 
     public ListaReservas() {
@@ -62,7 +91,7 @@ public class ListaReservas extends javax.swing.JFrame {
         btnLogoff = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblReservas = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         txtTitulo = new javax.swing.JTextField();
         lblTituloItem = new javax.swing.JLabel();
@@ -138,7 +167,7 @@ public class ListaReservas extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -149,7 +178,12 @@ public class ListaReservas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        tblReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblReservasMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblReservas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -173,6 +207,11 @@ public class ListaReservas extends javax.swing.JFrame {
         lblTituloItem.setText("Nome do Item:");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         rdLivro.setSelected(true);
         rdLivro.setText("Livro");
@@ -256,6 +295,11 @@ public class ListaReservas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblBusca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblBuscaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblBusca);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -278,6 +322,11 @@ public class ListaReservas extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnReservar.setText("Reservar");
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -356,6 +405,120 @@ public class ListaReservas extends javax.swing.JFrame {
         tblBusca.setModel(modeloSoftware);
     }//GEN-LAST:event_rdSoftwareActionPerformed
 
+    private void tblReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReservasMouseClicked
+        
+    }//GEN-LAST:event_tblReservasMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        ItemController ic = new ItemController();
+
+        if (rdLivro.isSelected()) {
+            modeloLivro.limpar();
+            modeloLivro.addListaDeLivro(ic.livroFacade.findAllWithValue("titulo", txtTitulo.getText()));
+        }
+        if (rdRevista.isSelected()) {
+            modeloRevista.limpar();
+            modeloRevista.addListaDeRvista(ic.revistaFacade.findAllWithValue("titulo", txtTitulo.getText()));
+        }
+        if (rdFilme.isSelected()) {
+            modeloFilme.limpar();
+            modeloFilme.addListaDeFilme(ic.filmeFacade.findAllWithValue("titulo", txtTitulo.getText()));
+        }
+        if (rdSoftware.isSelected()) {
+            modeloSoftware.limpar();
+            modeloSoftware.addListaDeSoftware(ic.softwareFacade.findAllWithValue("titulo", txtTitulo.getText()));
+        }
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        Reserva reserva = new Reserva();
+        int row = tblBusca.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um item na tabela para reservar");
+            return;
+        }
+        if (rdLivro.isSelected()) {
+            if (possuiExemplarDiponivel(modeloLivro.getLivro(row))) {
+                JOptionPane.showMessageDialog(rootPane, "Este Item possui exemplares disponíveis para emprestimo");
+                return;
+            }
+            reserva.setItem(modeloLivro.getLivro(row));
+        }
+        if (rdRevista.isSelected()) {
+            if (possuiExemplarDiponivel(modeloRevista.getRevista(row))) {
+                JOptionPane.showMessageDialog(rootPane, "Este Item possui exemplares disponíveis para emprestimo");
+                return;
+            }
+            reserva.setItem(modeloRevista.getRevista(row));
+        }
+        if (rdFilme.isSelected()) {
+            if (possuiExemplarDiponivel(modeloFilme.getFilme(row))) {
+                JOptionPane.showMessageDialog(rootPane, "Este Item possui exemplares disponíveis para emprestimo");
+                return;
+            }
+            reserva.setItem(modeloFilme.getFilme(row));
+        }
+        if (rdSoftware.isSelected()) {
+            if (possuiExemplarDiponivel(modeloSoftware.getSoftware(row))) {
+                JOptionPane.showMessageDialog(rootPane, "Este Item possui exemplares disponíveis para emprestimo");
+                return;
+            }
+            reserva.setItem(modeloSoftware.getSoftware(row));
+        }
+
+        reserva.setUsuario(usuario);
+        reserva.setDataReserva(Date.from(Instant.now()));
+        ReservaFacade rf = new ReservaFacade();
+        rf.edit(reserva);
+        JOptionPane.showMessageDialog(rootPane, "Item reservado");
+        buscarReservas(reserva.getItem());
+
+
+    }//GEN-LAST:event_btnReservarActionPerformed
+
+    private void tblBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBuscaMouseClicked
+        
+        if (evt.getClickCount() == 1) {
+            ReservaFacade rf = new ReservaFacade();
+            int row = tblBusca.getSelectedRow();
+            if (rdLivro.isSelected()) {
+                List<Reserva> reservas = rf.findAllWithItem( modeloLivro.getLivro(row).getId().toString(),"");
+                reservaModel.limpar();
+                reservaModel.addListaDeReserva(reservas);
+            }
+            if (rdRevista.isSelected()) {
+                List<Reserva> reservas = rf.findAllWithItem(modeloRevista.getRevista(row).getId().toString(),"");
+                reservaModel.limpar();
+                reservaModel.addListaDeReserva(reservas);
+            }
+            if (rdFilme.isSelected()) {
+                List<Reserva> reservas = rf.findAllWithItem( modeloFilme.getFilme(row).getId().toString(),"");
+                reservaModel.limpar();
+                reservaModel.addListaDeReserva(reservas);
+            }
+            if (rdSoftware.isSelected()) {
+                List<Reserva> reservas = rf.findAllWithItem( modeloSoftware.getSoftware(row).getId().toString(),"");
+                reservaModel.limpar();
+                reservaModel.addListaDeReserva(reservas);
+            }
+
+        }
+        
+    }//GEN-LAST:event_tblBuscaMouseClicked
+
+    private boolean possuiExemplarDiponivel(Item item) {
+        return item.getQtdeExemplaresDisponiveis() != 0;
+    }
+
+    private void buscarReservas(Item item) {
+        ReservaFacade rf = new ReservaFacade();
+        List<Reserva> reservas = rf.findAllWithItem(item.getId().toString(), "");
+        reservaModel.limpar();
+        reservaModel.addListaDeReserva(reservas);
+        tblReservas.setModel(reservaModel);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -403,7 +566,6 @@ public class ListaReservas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblListaReservas;
     private javax.swing.JLabel lblLogado;
     private javax.swing.JLabel lblNomeUsuarioLogado;
@@ -415,6 +577,7 @@ public class ListaReservas extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdRevista;
     private javax.swing.JRadioButton rdSoftware;
     private javax.swing.JTable tblBusca;
+    private javax.swing.JTable tblReservas;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

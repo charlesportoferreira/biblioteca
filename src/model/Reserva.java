@@ -28,7 +28,7 @@ public class Reserva implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataReserva;
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -57,7 +57,7 @@ public class Reserva implements Serializable {
         return item;
     }
 
-    public void setExemplar(Item item) {
+    public void setItem(Item item) {
         this.item = item;
     }
 

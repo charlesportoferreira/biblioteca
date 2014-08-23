@@ -11,11 +11,17 @@ import controller.ItemTableModel;
 import controller.LivroTableModel;
 import controller.RevistaTableModel;
 import controller.SoftwareTableModel;
+import facade.ReservaFacade;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.time.Instant;
+import java.util.Date;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import model.Biblioteca;
+import model.Item;
+import model.Reserva;
 import model.Usuario;
 
 /**
@@ -389,6 +395,11 @@ public class Menu extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnReservar.setText("Reservar");
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -426,10 +437,9 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -493,6 +503,65 @@ public class Menu extends javax.swing.JFrame {
         Biblioteca.abrirLogin();
         this.dispose();
     }//GEN-LAST:event_btnLogoffActionPerformed
+
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        Reserva reserva = new Reserva();
+        int row = tblBusca.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um item na tabela para reservar");
+            return;
+        }
+        if (rdLivro.isSelected()) {
+            if (possuiExemplarDiponivel(modeloLivro.getLivro(row))) {
+                JOptionPane.showMessageDialog(rootPane, "Este Item possui exemplares disponíveis para emprestimo");
+                return;
+            }
+            reserva.setItem(modeloLivro.getLivro(row));
+        }
+        if (rdRevista.isSelected()) {
+            if (possuiExemplarDiponivel(modeloRevista.getRevista(row))) {
+                JOptionPane.showMessageDialog(rootPane, "Este Item possui exemplares disponíveis para emprestimo");
+                return;
+            }
+            reserva.setItem(modeloRevista.getRevista(row));
+        }
+        if (rdFilme.isSelected()) {
+            if (possuiExemplarDiponivel(modeloFilme.getFilme(row))) {
+                JOptionPane.showMessageDialog(rootPane, "Este Item possui exemplares disponíveis para emprestimo");
+                return;
+            }
+            reserva.setItem(modeloFilme.getFilme(row));
+        }
+        if (rdSoftware.isSelected()) {
+            if (possuiExemplarDiponivel(modeloSoftware.getSoftware(row))) {
+                JOptionPane.showMessageDialog(rootPane, "Este Item possui exemplares disponíveis para emprestimo");
+                return;
+            }
+            reserva.setItem(modeloSoftware.getSoftware(row));
+        }
+
+        reserva.setUsuario(usuario);
+        reserva.setDataReserva(Date.from(Instant.now()));
+        ReservaFacade rf = new ReservaFacade();
+        rf.edit(reserva);
+        JOptionPane.showMessageDialog(rootPane, "Item reservado");
+        AbrirListaReservas(reserva.getItem());
+        this.dispose();
+
+    }//GEN-LAST:event_btnReservarActionPerformed
+
+    public void AbrirListaReservas(final Item item) {
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ListaReservas(usuario, item).setVisible(true);
+            }
+        });
+    }
+
+    private boolean possuiExemplarDiponivel(Item item) {
+        return item.getQtdeExemplaresDisponiveis() != 0;
+    }
 
     /**
      * @param args the command line arguments

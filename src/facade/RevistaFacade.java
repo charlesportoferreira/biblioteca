@@ -29,6 +29,9 @@ public class RevistaFacade extends AbstractFacade<Revista>{
     public RevistaFacade() {
         super(Revista.class);
     }
+    
+    
+    
 
 //     public List<Revista> findAllStartWith(String coluna, String valor) {
 //        em = getEntityManager();
