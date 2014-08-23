@@ -76,7 +76,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="327" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="118" max="32767" attributes="0"/>
+                  <EmptySpace pref="111" max="32767" attributes="0"/>
                   <Component id="lblTipoUsuario" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblNomeUsuarioLogado" min="-2" max="-2" attributes="0"/>
@@ -146,7 +146,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnLogoff">
           <Properties>
-            <Property name="text" type="java.lang.String" value="logff"/>
+            <Property name="text" type="java.lang.String" value="logoff"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoffActionPerformed"/>

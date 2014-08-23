@@ -15,6 +15,7 @@ import controller.SoftwareTableModel;
 import facade.ReservaFacade;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -60,14 +61,16 @@ public class ListaReservas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         lblTipoUsuario.setText(usuario.getCategoria().getTipo() + "(a)");
         lblNomeUsuarioLogado.setText(usuario.getNome());
-//        menuItemMenu.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                new Menu(usuario).setVisible(true);
-//                dispose();
-//            }
-//
-//        });
+        menuItemMenu = new JMenuItem("Menu", KeyEvent.VK_M);
+        menuMenu.add(menuItemMenu);
+        menuItemMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Menu(usuario).setVisible(true);
+                dispose();
+            }
+
+        });
     }
 
     public ListaReservas() {
@@ -124,7 +127,7 @@ public class ListaReservas extends javax.swing.JFrame {
         lblLogado.setForeground(new java.awt.Color(0, 0, 255));
         lblLogado.setText("logado(a)");
 
-        btnLogoff.setText("logff");
+        btnLogoff.setText("logoff");
         btnLogoff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoffActionPerformed(evt);

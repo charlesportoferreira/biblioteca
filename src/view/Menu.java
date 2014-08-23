@@ -328,7 +328,7 @@ public class Menu extends javax.swing.JFrame {
         lblLogado.setForeground(new java.awt.Color(0, 0, 255));
         lblLogado.setText("logado(a)");
 
-        btnLogoff.setText("logff");
+        btnLogoff.setText("logoff");
         btnLogoff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoffActionPerformed(evt);
