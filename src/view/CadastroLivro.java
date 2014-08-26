@@ -37,8 +37,8 @@ public class CadastroLivro extends javax.swing.JFrame {
     AutorTableModel autorModel;
     LivroTableModel livroTableModel;
     JMenuItem menuItemMenu;
-    JMenuItem menuItemCadastroEmprestimo;
-    JMenuItem menuItemEmprestimo;
+    //JMenuItem menuItemCadastroEmprestimo;
+    //JMenuItem menuItemEmprestimo;
 
     public CadastroLivro(final Usuario usuario) {
 
@@ -48,10 +48,10 @@ public class CadastroLivro extends javax.swing.JFrame {
         livro = new Livro();
         menuItemMenu = new JMenuItem("Menu", KeyEvent.VK_M);
         menuMenu.add(menuItemMenu);
-        menuItemEmprestimo = new JMenuItem("Visualizar", KeyEvent.VK_V);
-        menuItemCadastroEmprestimo = new JMenuItem("Cadastrar", KeyEvent.VK_C);
-        menuEmprestimo.add(menuItemCadastroEmprestimo);
-        menuEmprestimo.add(menuItemEmprestimo);
+       // menuItemEmprestimo = new JMenuItem("Visualizar", KeyEvent.VK_V);
+        //menuItemCadastroEmprestimo = new JMenuItem("Cadastrar", KeyEvent.VK_C);
+       // menuEmprestimo.add(menuItemCadastroEmprestimo);
+       // menuEmprestimo.add(menuItemEmprestimo);
         autorModel = new AutorTableModel();
         lblTipoUsuario.setText(usuario.getCategoria().getTipo() + "(a)");
         lblNomeUsuario.setText(usuario.getNome());
@@ -67,21 +67,21 @@ public class CadastroLivro extends javax.swing.JFrame {
 
         });
         
-        menuItemCadastroEmprestimo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new EmprestimoView(usuario).setVisible(true);
-                dispose();
-            }
-        });
-
-        menuItemEmprestimo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ListaEmprestimo(usuario).setVisible(true);
-                dispose();
-            }
-        });
+//        menuItemCadastroEmprestimo.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                new EmprestimoView(usuario).setVisible(true);
+//                dispose();
+//            }
+//        });
+//
+//        menuItemEmprestimo.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                new ListaEmprestimo(usuario).setVisible(true);
+//                dispose();
+//            }
+//        });
         
         buscarAutores();
 
@@ -89,7 +89,7 @@ public class CadastroLivro extends javax.swing.JFrame {
 
     public CadastroLivro() {
         initComponents();
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
     }
 
     /**
@@ -152,7 +152,6 @@ public class CadastroLivro extends javax.swing.JFrame {
         ckDisponivel = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuMenu = new javax.swing.JMenu();
-        menuEmprestimo = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -390,12 +389,13 @@ public class CadastroLivro extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnSalvarLivro)
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addGap(14, 14, 14)
-                            .addComponent(lblAutores)
-                            .addGap(54, 54, 54)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSalvarLivro)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(lblAutores)
+                                .addGap(54, 54, 54))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -584,9 +584,6 @@ public class CadastroLivro extends javax.swing.JFrame {
 
         menuMenu.setText("Menu");
         jMenuBar1.add(menuMenu);
-
-        menuEmprestimo.setText("Emprestimo");
-        jMenuBar1.add(menuEmprestimo);
 
         setJMenuBar(jMenuBar1);
 
@@ -845,7 +842,6 @@ public class CadastroLivro extends javax.swing.JFrame {
     private javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JList listAutores;
-    private javax.swing.JMenu menuEmprestimo;
     private javax.swing.JMenu menuMenu;
     private javax.swing.JPanel panelCadastraLivro;
     private javax.swing.JPanel panelCadastroAutor;

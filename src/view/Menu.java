@@ -95,8 +95,8 @@ public class Menu extends javax.swing.JFrame {
         }
         lblTipoUsuario.setText(usuario.getCategoria().getTipo() + "(a)");
         lblNomeUsuario.setText(usuario.getNome());
-        
-         menuItemLivro.addActionListener(new ActionListener() {
+
+        menuItemLivro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new CadastroLivro(usuario).setVisible(true);
@@ -124,6 +124,46 @@ public class Menu extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Renovacao(usuario).setVisible(true);
+                dispose();
+            }
+        });
+
+        menuItemUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CadastroUsuario(usuario).setVisible(true);
+                dispose();
+            }
+        });
+
+        menuItemFilme.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CadastroFilme(usuario).setVisible(true);
+                dispose();
+            }
+        });
+
+        menuItemRevista.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CadastroRevista(usuario).setVisible(true);
+                dispose();
+            }
+        });
+
+        menuItemSoftware.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CadastroSoftware(usuario).setVisible(true);
+                dispose();
+            }
+        });
+        
+        menuItemPrateleira.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CadastraPrateleira(usuario).setVisible(true);
                 dispose();
             }
         });

@@ -3,15 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
+import controller.CategoriaTableModel;
 import facade.CategoriaFacade;
 import facade.UsuarioFacade;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import model.Biblioteca;
 import model.Categoria;
 import model.Usuario;
@@ -22,19 +28,39 @@ import model.Usuario;
  * @author Jéssica
  * @author Aline
  */
-public class CadastroUsuario extends FormBase {
+public class CadastroUsuario extends javax.swing.JFrame {
+
     Usuario usuario;
+    JMenuItem menuItemMenu;
+    CategoriaTableModel categoriaTableModel;
+
     /**
      * Creates new form CadastroUsuario
+     *
      * @param usuario
      */
-    public CadastroUsuario(Usuario usuario) {
+    public CadastroUsuario(final Usuario usuario) {
         this.usuario = usuario;
-        initComponents();       
+        initComponents();
+        categoriaTableModel = new CategoriaTableModel();
+        menuItemMenu = new JMenuItem("Menu", KeyEvent.VK_M);
+        menuMenu.add(menuItemMenu);
+        menuItemMenu.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Menu(usuario).setVisible(true);
+                dispose();
+            }
+
+        });
+        buscarCategorias();
+        setLocationRelativeTo(null);
     }
-    
-     public CadastroUsuario() {
-        initComponents();       
+
+    public CadastroUsuario() {
+        initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -46,6 +72,7 @@ public class CadastroUsuario extends FormBase {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jRadioButton1 = new javax.swing.JRadioButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -67,7 +94,7 @@ public class CadastroUsuario extends FormBase {
         txtDataNAsc = new javax.swing.JFormattedTextField();
         txtRg = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCategoria = new javax.swing.JTable();
         btnSelecaoCategoria = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -83,6 +110,10 @@ public class CadastroUsuario extends FormBase {
         lblNomeUsuario = new javax.swing.JLabel();
         lblLogado = new javax.swing.JLabel();
         btnLogoff = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuMenu = new javax.swing.JMenu();
+
+        jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(900, 700));
@@ -123,7 +154,7 @@ public class CadastroUsuario extends FormBase {
             ex.printStackTrace();
         }
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -134,7 +165,7 @@ public class CadastroUsuario extends FormBase {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCategoria);
 
         btnSelecaoCategoria.setText("Selecione");
 
@@ -160,11 +191,15 @@ public class CadastroUsuario extends FormBase {
                                     .addComponent(txtNome)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEmail)
-                                    .addComponent(lblDataNasc)
-                                    .addComponent(lblLogin)
-                                    .addComponent(btnSelecaoCategoria))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblEmail)
+                                            .addComponent(lblLogin)
+                                            .addComponent(btnSelecaoCategoria))
+                                        .addGap(36, 36, 36))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(lblDataNasc)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtEmail)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -201,11 +236,7 @@ public class CadastroUsuario extends FormBase {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(lblEmail)
-                        .addGap(21, 21, 21)
-                        .addComponent(lblDataNasc)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblLogin))
+                        .addComponent(lblEmail))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,19 +246,23 @@ public class CadastroUsuario extends FormBase {
                             .addComponent(txtDataNAsc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCpf)
-                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDataNasc))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblSenha)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLogin))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSelecaoCategoria))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnSelecaoCategoria)
+                        .addGap(0, 85, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
-                .addGap(38, 38, 38))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -243,8 +278,8 @@ public class CadastroUsuario extends FormBase {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(285, 285, 285))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(226, 226, 226))
         );
 
         jTabbedPane1.addTab("Usuário", jPanel1);
@@ -285,7 +320,7 @@ public class CadastroUsuario extends FormBase {
                             .addComponent(txtNroDias, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(checkPrivilegio))))
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(257, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,7 +337,7 @@ public class CadastroUsuario extends FormBase {
                     .addComponent(checkPrivilegio))
                 .addGap(74, 74, 74)
                 .addComponent(btnSalvarCategoria)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -311,15 +346,15 @@ public class CadastroUsuario extends FormBase {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Categoria", jPanel3);
@@ -380,6 +415,11 @@ public class CadastroUsuario extends FormBase {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        menuMenu.setText("Menu");
+        jMenuBar1.add(menuMenu);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -397,8 +437,8 @@ public class CadastroUsuario extends FormBase {
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -410,29 +450,54 @@ public class CadastroUsuario extends FormBase {
         categoria.setDiasEmprestimo(Integer.parseInt(txtNroDias.getText()));
         categoria.setPrivilegiado(checkPrivilegio.isSelected());
         categoria.setTipo(txtNomeCategoria.getText());
-        
+
         categoriaFacade.create(categoria);
+
+        buscarCategorias();
     }//GEN-LAST:event_btnSalvarCategoriaActionPerformed
+
+    private void buscarCategorias() {
+        CategoriaFacade cf = new CategoriaFacade();
+        List<Categoria> c = cf.findAll();
+        categoriaTableModel.limpar();
+        categoriaTableModel.addListaDeCategoria(c);
+        tblCategoria.setModel(categoriaTableModel);
+    }
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         UsuarioFacade usuarioFacade = new UsuarioFacade();
-        Usuario usuario = new Usuario();
-        usuario.setCPF(Integer.parseInt(txtCpf.getText()));
+        Usuario u = new Usuario();
+        u.setCPF(Integer.parseInt(txtCpf.getText()));
+        int row = tblCategoria.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma categoria na tabela");
+            return;
+        }
+        Categoria categoria = categoriaTableModel.getCategoria(row);
+
         try {
-            //usuario.getCategoria()
-            usuario.setDataNascimento( new SimpleDateFormat("dd/MM/yyyy").parse(txtDataNAsc.getText()) );
+            u.setCategoria(categoria);
+            u.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(txtDataNAsc.getText()));
         } catch (ParseException ex) {
             Logger.getLogger(CadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        usuario.setEmail(txtEmail.getText());
-        usuario.setEndereco(txtEndereco.getText());
-        usuario.setLogin(txtLogin.getText());
-        usuario.setNome(txtNome.getText());
-        usuario.setRG(getNumeroSemMascara(txtRg.getText()));
-        usuario.setSenha(txtSenha.getText());
+        u.setEmail(txtEmail.getText());
+        u.setEndereco(txtEndereco.getText());
+        u.setLogin(txtLogin.getText());
+        u.setNome(txtNome.getText());
+        u.setRG(getNumeroSemMascara(txtRg.getText()));
+        u.setSenha(txtSenha.getText());
 
-        usuarioFacade.create(usuario);
+        usuarioFacade.edit(u);
+        JOptionPane.showMessageDialog(rootPane, "Usuario Cadastrado");
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    public int getNumeroSemMascara(String valor) {
+        valor = valor.replaceAll("\\.", "");
+        valor = valor.replaceAll("-", "");
+
+        return Integer.parseInt(valor);
+    }
 
     private void btnLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoffActionPerformed
         this.usuario = null;
@@ -482,14 +547,15 @@ public class CadastroUsuario extends FormBase {
     private javax.swing.JButton btnSelecaoCategoria;
     private javax.swing.JCheckBox checkPrivilegio;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCpf;
     private javax.swing.JLabel lblDataNasc;
     private javax.swing.JLabel lblEmail;
@@ -502,7 +568,9 @@ public class CadastroUsuario extends FormBase {
     private javax.swing.JLabel lblRg;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblTipoUsuario;
+    private javax.swing.JMenu menuMenu;
     private javax.swing.JLabel nroDias;
+    private javax.swing.JTable tblCategoria;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JFormattedTextField txtDataNAsc;
     private javax.swing.JTextField txtEmail;

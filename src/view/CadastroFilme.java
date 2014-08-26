@@ -444,6 +444,12 @@ public class CadastroFilme extends FormBase {
         }
         return true;
     }
+    
+    private void menuMenuActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        Biblioteca.abrirMenu(this.usuario);
+    } 
+    
+    
     private void btnSalvarAtorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarAtorActionPerformed
         if (validaAtor()) {
             try {

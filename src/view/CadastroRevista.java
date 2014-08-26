@@ -375,6 +375,10 @@ public class CadastroRevista extends FormBase {
         this.dispose();
     }//GEN-LAST:event_btnLogoffActionPerformed
 
+    private void menuMenuActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        Biblioteca.abrirMenu(this.usuario);
+    } 
+    
     private void limpaCaixasDeTexto() {
         this.txtAno.setText("");
         this.txtNro.setText("");
