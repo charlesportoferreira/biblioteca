@@ -5,17 +5,6 @@
  */
 package view;
 
-import controller.FilmeTableModel;
-import controller.ItemController;
-import controller.ItemTableModel;
-import controller.LivroTableModel;
-import controller.RevistaTableModel;
-import controller.SoftwareTableModel;
-import java.awt.event.KeyEvent;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import sun.awt.SunToolkit;
-
 /**
  * @author Charles
  * @author Juliana
