@@ -32,7 +32,7 @@ public class ReservaFacade extends AbstractFacade<Reserva>{
     public List<Reserva> findAllWithItem(String id, String comandoComplementarSQL) {
         em = getEntityManager();
         Query query = em.createNativeQuery(
-                "select * from Reserva where item_id = " + id + comandoComplementarSQL, Reserva.class);
+                "select * from RESERVA where item_id = " + id + comandoComplementarSQL, Reserva.class);
         List<Reserva> result = query.getResultList();
         return result;
     }

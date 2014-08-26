@@ -33,7 +33,7 @@ public class EmprestimoFacade extends AbstractFacade<Emprestimo> {
     public List<Emprestimo> findAllWithUsuario(String id, String comandoComplementarSQL) {
         em = getEntityManager();
         Query query = em.createNativeQuery(
-                "select * from Emprestimo where usuario_id = " + id + comandoComplementarSQL, Emprestimo.class);
+                "select * from EMPRESTIMO where usuario_id = " + id + comandoComplementarSQL, Emprestimo.class);
         List<Emprestimo> result = query.getResultList();
         return result;
     }
@@ -41,7 +41,7 @@ public class EmprestimoFacade extends AbstractFacade<Emprestimo> {
     public List<Emprestimo> findAllWithItem(String idbib, String comandoComplementarSQL) {
         em = getEntityManager();
         Query query = em.createNativeQuery(
-                "select * from Emprestimo where exemplar_idbib = " + idbib + comandoComplementarSQL, Emprestimo.class);
+                "select * from EMPRESTIMO where exemplar_idbib = " + idbib + comandoComplementarSQL, Emprestimo.class);
         List<Emprestimo> result = query.getResultList();
         return result;
     }
