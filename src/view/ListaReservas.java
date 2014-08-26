@@ -27,8 +27,10 @@ import model.Reserva;
 import model.Usuario;
 
 /**
- *
- * @author charleshenriqueportoferreira
+ * @author Charles
+ * @author Juliana
+ * @author Jéssica
+ * @author Aline
  */
 public class ListaReservas extends javax.swing.JFrame {
 

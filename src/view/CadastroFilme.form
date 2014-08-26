@@ -61,12 +61,30 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jLabel4" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblTipoUsuario" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblNomeUsuario" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblLogado" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnLogoff" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jLabel4" alignment="0" pref="97" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblLogado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblNomeUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblTipoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnLogoff" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -78,6 +96,38 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Cadastro de Filme"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnLogoff">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="logoff"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoffActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblNomeUsuario">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="jLabel6"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblTipoUsuario">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="aaaa"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblLogado">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="logado(a)"/>
           </Properties>
         </Component>
       </SubComponents>

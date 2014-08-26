@@ -31,6 +31,10 @@ public class Autor implements Serializable {
         livros.add(livro);
     }
 
+    public void removeLivro(Livro livro) {
+        livros.remove(livro);
+    }
+
     public Long getId() {
         return id;
     }

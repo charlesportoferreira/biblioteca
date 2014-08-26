@@ -25,8 +25,10 @@ import model.Reserva;
 import model.Usuario;
 
 /**
- *
- * @author charleshenriqueportoferreira
+ * @author Charles
+ * @author Juliana
+ * @author Jéssica
+ * @author Aline
  */
 public class Menu extends javax.swing.JFrame {
 
@@ -93,6 +95,14 @@ public class Menu extends javax.swing.JFrame {
         }
         lblTipoUsuario.setText(usuario.getCategoria().getTipo() + "(a)");
         lblNomeUsuario.setText(usuario.getNome());
+        
+         menuItemLivro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CadastroLivro(usuario).setVisible(true);
+                dispose();
+            }
+        });
 
         menuItemCadastroEmprestimo.addActionListener(new ActionListener() {
             @Override

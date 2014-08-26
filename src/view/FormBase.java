@@ -17,8 +17,10 @@ import javax.swing.JOptionPane;
 import sun.awt.SunToolkit;
 
 /**
- *
- * @author charleshenriqueportoferreira
+ * @author Charles
+ * @author Juliana
+ * @author Jéssica
+ * @author Aline
  */
 public class FormBase extends javax.swing.JFrame {
 
@@ -26,7 +28,7 @@ public class FormBase extends javax.swing.JFrame {
     public FormBase() {
         initComponents();        
         
-         
+         setLocationRelativeTo(null);
         
     }
 
@@ -49,7 +51,6 @@ public class FormBase extends javax.swing.JFrame {
         menuItemRevista = new javax.swing.JMenuItem();
         menuItemSoftware = new javax.swing.JMenuItem();
         menuItemPrateleira = new javax.swing.JMenuItem();
-        menuRenovar = new javax.swing.JMenu();
         menuEmprestimo = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,9 +109,6 @@ public class FormBase extends javax.swing.JFrame {
         menuCadastrar.add(menuItemPrateleira);
 
         jMenuBar1.add(menuCadastrar);
-
-        menuRenovar.setText("Renovacao");
-        jMenuBar1.add(menuRenovar);
 
         menuEmprestimo.setText("Emprestimo");
         jMenuBar1.add(menuEmprestimo);
@@ -218,6 +216,5 @@ public class FormBase extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemRevista;
     private javax.swing.JMenuItem menuItemSoftware;
     private javax.swing.JMenuItem menuItemUsuario;
-    private javax.swing.JMenu menuRenovar;
     // End of variables declaration//GEN-END:variables
 }

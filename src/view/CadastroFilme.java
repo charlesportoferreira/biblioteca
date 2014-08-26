@@ -9,17 +9,27 @@ import facade.AtorFacade;
 import facade.FilmeFacade;
 import javax.swing.JOptionPane;
 import model.Ator;
+import model.Biblioteca;
 import model.Filme;
+import model.Usuario;
 
 /**
- *
+ * @author Charles
+ * @author Juliana
  * @author Jéssica
+ * @author Aline
  */
 public class CadastroFilme extends FormBase {
-
+    Usuario usuario;
     /**
      * Creates new form CadastroFilme
+     * @param usuario
      */
+    public CadastroFilme(Usuario usuario) {
+        this.usuario = usuario;
+        initComponents();
+    }
+    
     public CadastroFilme() {
         initComponents();
     }
@@ -35,6 +45,10 @@ public class CadastroFilme extends FormBase {
 
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        btnLogoff = new javax.swing.JButton();
+        lblNomeUsuario = new javax.swing.JLabel();
+        lblTipoUsuario = new javax.swing.JLabel();
+        lblLogado = new javax.swing.JLabel();
         tabPanel = new javax.swing.JTabbedPane();
         tabFilme = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
@@ -78,17 +92,49 @@ public class CadastroFilme extends FormBase {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Cadastro de Filme");
 
+        btnLogoff.setText("logoff");
+        btnLogoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoffActionPerformed(evt);
+            }
+        });
+
+        lblNomeUsuario.setForeground(new java.awt.Color(0, 0, 255));
+        lblNomeUsuario.setText("jLabel6");
+
+        lblTipoUsuario.setForeground(new java.awt.Color(0, 0, 255));
+        lblTipoUsuario.setText("aaaa");
+
+        lblLogado.setForeground(new java.awt.Color(0, 0, 255));
+        lblLogado.setText("logado(a)");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTipoUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNomeUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLogado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLogoff)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLogado)
+                    .addComponent(lblNomeUsuario)
+                    .addComponent(lblTipoUsuario)
+                    .addComponent(btnLogoff))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -415,6 +461,12 @@ public class CadastroFilme extends FormBase {
         }
     }//GEN-LAST:event_btnSalvarAtorActionPerformed
 
+    private void btnLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoffActionPerformed
+        this.usuario = null;
+        Biblioteca.abrirLogin();
+        this.dispose();
+    }//GEN-LAST:event_btnLogoffActionPerformed
+
     private boolean validaAtor() {
         if (this.txtNome.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "O nome do ator é propriedade obrigatória");
@@ -462,6 +514,7 @@ public class CadastroFilme extends FormBase {
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnBuscarCategoria;
     private javax.swing.JButton btnBuscarLivro;
+    private javax.swing.JButton btnLogoff;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSalvarAtor;
     private javax.swing.JButton btnSalvarExemplar;
@@ -482,8 +535,11 @@ public class CadastroFilme extends FormBase {
     private javax.swing.JLabel lblAno;
     private javax.swing.JLabel lblAtores;
     private javax.swing.JLabel lblCategoria;
+    private javax.swing.JLabel lblLogado;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblNomeUsuario;
     private javax.swing.JLabel lblProdutora;
+    private javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel tabAtor;
     private javax.swing.JPanel tabFilme;

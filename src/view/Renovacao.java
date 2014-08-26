@@ -6,7 +6,6 @@
 package view;
 
 import controller.EmprestimoTableModel;
-import controller.LivroTableModel;
 import facade.EmprestimoFacade;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,12 +18,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import model.Biblioteca;
 import model.Emprestimo;
-import model.Livro;
 import model.Usuario;
 
 /**
- *
- * @author charleshenriqueportoferreira
+ * @author Charles
+ * @author Juliana
+ * @author Jéssica
+ * @author Aline
  */
 public class Renovacao extends javax.swing.JFrame {
 

@@ -11,8 +11,10 @@ import javax.swing.JOptionPane;
 import model.Biblioteca;
 
 /**
- *
- * @author charleshenriqueportoferreira
+ * @author Charles
+ * @author Juliana
+ * @author Jéssica
+ * @author Aline
  */
 public class Login extends javax.swing.JFrame {
 

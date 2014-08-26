@@ -36,6 +36,10 @@ public class Livro extends Item implements Serializable {
         autores.add(autor);
     }
     
+    public void removeAutor(Autor autor){
+        autores.remove(autor);
+    }
+    
     public String getEditora() {
         return editora;
     }

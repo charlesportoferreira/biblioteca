@@ -12,19 +12,28 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Biblioteca;
 import model.Categoria;
 import model.Usuario;
 
 /**
- *
+ * @author Charles
+ * @author Juliana
  * @author Jéssica
+ * @author Aline
  */
 public class CadastroUsuario extends FormBase {
-
+    Usuario usuario;
     /**
      * Creates new form CadastroUsuario
+     * @param usuario
      */
-    public CadastroUsuario() {
+    public CadastroUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        initComponents();       
+    }
+    
+     public CadastroUsuario() {
         initComponents();       
     }
 
@@ -70,6 +79,10 @@ public class CadastroUsuario extends FormBase {
         btnSalvarCategoria = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        lblTipoUsuario = new javax.swing.JLabel();
+        lblNomeUsuario = new javax.swing.JLabel();
+        lblLogado = new javax.swing.JLabel();
+        btnLogoff = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(900, 700));
@@ -318,15 +331,53 @@ public class CadastroUsuario extends FormBase {
         jLabel2.setText("Cadastro de Usuário");
         jLabel2.setToolTipText("");
 
+        lblTipoUsuario.setForeground(new java.awt.Color(0, 0, 255));
+        lblTipoUsuario.setText("aaaa");
+
+        lblNomeUsuario.setForeground(new java.awt.Color(0, 0, 255));
+        lblNomeUsuario.setText("jLabel6");
+
+        lblLogado.setForeground(new java.awt.Color(0, 0, 255));
+        lblLogado.setText("logado(a)");
+
+        btnLogoff.setText("logoff");
+        btnLogoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoffActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(263, 263, 263)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTipoUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNomeUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLogado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLogoff)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(32, 32, 32))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLogado)
+                    .addComponent(lblNomeUsuario)
+                    .addComponent(lblTipoUsuario)
+                    .addComponent(btnLogoff))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -383,6 +434,12 @@ public class CadastroUsuario extends FormBase {
         usuarioFacade.create(usuario);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void btnLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoffActionPerformed
+        this.usuario = null;
+        Biblioteca.abrirLogin();
+        this.dispose();
+    }//GEN-LAST:event_btnLogoffActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -419,6 +476,7 @@ public class CadastroUsuario extends FormBase {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogoff;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSalvarCategoria;
     private javax.swing.JButton btnSelecaoCategoria;
@@ -436,11 +494,14 @@ public class CadastroUsuario extends FormBase {
     private javax.swing.JLabel lblDataNasc;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEndereco;
+    private javax.swing.JLabel lblLogado;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNomeCategoria;
+    private javax.swing.JLabel lblNomeUsuario;
     private javax.swing.JLabel lblRg;
     private javax.swing.JLabel lblSenha;
+    private javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JLabel nroDias;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JFormattedTextField txtDataNAsc;

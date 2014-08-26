@@ -20,8 +20,10 @@ import model.Emprestimo;
 import model.Usuario;
 
 /**
- *
- * @author charleshenriqueportoferreira
+ * @author Charles
+ * @author Juliana
+ * @author Jéssica
+ * @author Aline
  */
 public class ListaEmprestimo extends javax.swing.JFrame {
 

@@ -7,17 +7,29 @@ package view;
 
 import facade.PrateleiraFacade;
 import javax.swing.JOptionPane;
+import model.Biblioteca;
 import model.Prateleira;
+import model.Usuario;
 
 /**
- *
+ * @author Charles
+ * @author Juliana
  * @author Jéssica
+ * @author Aline
  */
 public class CadastraPrateleira extends FormBase {
 
+    Usuario usuario;
+
     /**
      * Creates new form CadastraPrateleira
+     * @param usuario
      */
+    public CadastraPrateleira(Usuario usuario) {
+        this.usuario = usuario;
+        initComponents();
+    }
+
     public CadastraPrateleira() {
         initComponents();
     }
@@ -33,6 +45,10 @@ public class CadastraPrateleira extends FormBase {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lblLogado = new javax.swing.JLabel();
+        lblTipoUsuario = new javax.swing.JLabel();
+        lblNomeUsuario = new javax.swing.JLabel();
+        btnLogoff = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
@@ -48,15 +64,54 @@ public class CadastraPrateleira extends FormBase {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cadastro de Prateleira");
 
+        lblLogado.setForeground(new java.awt.Color(0, 0, 255));
+        lblLogado.setText("logado(a)");
+
+        lblTipoUsuario.setForeground(new java.awt.Color(0, 0, 255));
+        lblTipoUsuario.setText("aaaa");
+
+        lblNomeUsuario.setForeground(new java.awt.Color(0, 0, 255));
+        lblNomeUsuario.setText("jLabel6");
+
+        btnLogoff.setText("logoff");
+        btnLogoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoffActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(225, 225, 225)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblTipoUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNomeUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLogado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLogoff)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblLogado)
+                            .addComponent(lblNomeUsuario)
+                            .addComponent(lblTipoUsuario)
+                            .addComponent(btnLogoff))))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -93,7 +148,7 @@ public class CadastraPrateleira extends FormBase {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(612, 612, 612)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,12 +195,12 @@ public class CadastraPrateleira extends FormBase {
         if (this.valida()) {
             try {
                 Prateleira prateleira = new Prateleira();
-                prateleira.setCodigo(Long.parseLong(this.txtCodigo.getText()));
+                prateleira.setCodigo(this.txtCodigo.getText());
                 prateleira.setAreaConhecimento(Prateleira.AreasDoConhecimento.valueOf(this.comboBoxAreaConhecimento.getSelectedItem().toString()));
-                
+
                 PrateleiraFacade prateleiraFacade = new PrateleiraFacade();
                 prateleiraFacade.create(prateleira);
-                
+
                 JOptionPane.showMessageDialog(rootPane, "Prateleira cadastrada com sucesso");
                 limpaCaixasDeTexto();
             } catch (Exception e) {
@@ -153,6 +208,12 @@ public class CadastraPrateleira extends FormBase {
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoffActionPerformed
+        this.usuario = null;
+        Biblioteca.abrirLogin();
+        this.dispose();
+    }//GEN-LAST:event_btnLogoffActionPerformed
     private void limpaCaixasDeTexto() {
         this.txtCodigo.setText("");
     }
@@ -168,7 +229,6 @@ public class CadastraPrateleira extends FormBase {
     /**
      * @param args the command line arguments
      */
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -202,6 +262,7 @@ public class CadastraPrateleira extends FormBase {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogoff;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox comboBoxAreaConhecimento;
     private javax.swing.JLabel jLabel1;
@@ -209,6 +270,9 @@ public class CadastraPrateleira extends FormBase {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblAreaConhecimento;
     private javax.swing.JLabel lblCodigo;
+    private javax.swing.JLabel lblLogado;
+    private javax.swing.JLabel lblNomeUsuario;
+    private javax.swing.JLabel lblTipoUsuario;
     private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

@@ -32,8 +32,10 @@ import model.Software;
 import model.Usuario;
 
 /**
- *
- * @author charleshenriqueportoferreira
+ * @author Charles
+ * @author Juliana
+ * @author Jéssica
+ * @author Aline
  */
 public class EmprestimoView extends javax.swing.JFrame {
 
