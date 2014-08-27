@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.CascadeType.ALL;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class Autor implements Serializable {
 
     private String nome;
 
-    @ManyToMany(cascade = ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = ALL, fetch = FetchType.EAGER, mappedBy="autores")
     private List<Livro> livros;
 
     public void addLivro(Livro livro) {

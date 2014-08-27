@@ -12,13 +12,11 @@ public class CompraFacade extends AbstractFacade<Compra> {
 
     @Override
     protected EntityManager getEntityManager() {
-       // if (em != null) {
-         //   return em;
-        //} else {
+       
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
             em = emf.createEntityManager();
             return em;
-        //}
+        
     }
 
     public CompraFacade() {

@@ -8,25 +8,23 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import org.eclipse.persistence.annotations.Index;
 
 @Entity
+
 @DiscriminatorValue("Livro")
 public class Livro extends Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
-
-    
     private String editora;
-    private int edicao; //Int ou String?
-    private String ISBN; //Int ou String?
+    private int edicao; 
+    private String ISBN; 
     private String localPublicacao;
     private int numPaginas;
     
     @ManyToMany(cascade = ALL, fetch=FetchType.EAGER)
+    @Index
     private List<Autor> autores;
 
     public void addAutor(Autor autor){
@@ -36,6 +34,7 @@ public class Livro extends Item implements Serializable {
         autores.add(autor);
     }
     
+
     public void removeAutor(Autor autor){
         autores.remove(autor);
     }
@@ -87,8 +86,6 @@ public class Livro extends Item implements Serializable {
     public void setAutores(List<Autor> autores) {
         this.autores = autores;
     }
-    
-    
 
     @Override
     public int hashCode() {

@@ -6,7 +6,6 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.Livro;
 
 public abstract class AbstractFacade<T> {
 
@@ -93,15 +92,6 @@ public abstract class AbstractFacade<T> {
     }
 
     public List<T> findAllWithValue(String collumn1, String value1, String collumn2, String value2) {
-//        EntityManager em = getEntityManager();
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery cq = cb.createQuery();
-//        Root entity = cq.from(entityClass);
-//        cq.select(entity).where(cb.like(entity.get(collumn1), "%" + value1 + "%"));
-//        cq.select(entity).where(cb.equal(entity, entity))
-//        Query query = em.createQuery(cq);
-//        List<T> result = query.getResultList();
-//        return result;
 
         EntityManager em = getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();

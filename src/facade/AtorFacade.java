@@ -15,13 +15,11 @@ public class AtorFacade extends AbstractFacade<Ator> {
 
     @Override
     protected EntityManager getEntityManager() {
-       // if (em != null) {
-        //   return em;
-        //} else {
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
         em = emf.createEntityManager();
         return em;
-        //}
+
     }
 
     public AtorFacade() {
