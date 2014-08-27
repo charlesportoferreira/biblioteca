@@ -259,19 +259,36 @@ public class Biblioteca {
         
         rf.edit(revista);
 
-        Filme filme = new Filme();
-        filme.setAno(1999);
-        filme.setTitulo("TituloFilme");
-        filme.setProdutora("prodFilme");
+        Filme filme1 = new Filme();
+        filme1.setAno(1999);
+        filme1.setTitulo("Filme1");
+        filme1.setProdutora("prodFilme1");
+        ff.create(filme1);
+        
+        Filme filme2 = new Filme();
+        filme2.setAno(2014);
+        filme2.setTitulo("Filme2");
+        filme2.setProdutora("prodFilme2");
+        ff.create(filme2);
+        
+        
         Ator at1 = atf.findAll().get(0);
         Ator at2 = atf.findAll().get(1);
-        filme.addAtor(at1);
-        filme.addAtor(at2);
-        at1.addFilme(filme);
-        at2.addFilme(filme);
-
+        Filme f1 = ff.findAll().get(0);
+        f1.addAtor(at1);
+        f1.addAtor(at2);
+        at1.addFilme(f1);
+        at2.addFilme(f1);
+        ff.edit(f1);
+        atf.edit(at1);
+        atf.edit(at2);
         
-        ff.edit(filme);
+        Ator at11 = atf.findAll().get(0);
+        Filme f2 = ff.findAll().get(1);
+        f2.addAtor(at11);
+        at11.addFilme(f2);
+        ff.edit(f2);
+        atf.edit(at11);
 
         Software software = new Software();
         software.setTitulo("TituloSoftware");
@@ -346,28 +363,28 @@ public class Biblioteca {
         ef.edit(e8);
 
         Exemplar e9 = new Exemplar();
-        Filme f1 = (Filme) itf.findAll().get(4);
-        e9.setItem(f1);
-        f1.addExemplar(e9);
+        Filme fi1 = (Filme) itf.findAll().get(4);
+        e9.setItem(fi1);
+        fi1.addExemplar(e9);
         e9.setDisponivel(true);
         ef.edit(e9);
 
         Exemplar e10 = new Exemplar();
-        Filme f2 = (Filme) itf.findAll().get(4);
-        e10.setItem(f2);
-        f2.addExemplar(e10);
+        Filme fi2 = (Filme) itf.findAll().get(4);
+        e10.setItem(fi2);
+        fi2.addExemplar(e10);
         e10.setDisponivel(true);
         ef.edit(e10);
 
         Exemplar e11 = new Exemplar();
-        Software s1 = (Software) itf.findAll().get(5);
+        Software s1 = (Software) itf.findAll().get(6);
         e11.setItem(s1);
         s1.addExemplar(e11);
         e11.setDisponivel(true);
         ef.edit(e11);
 
         Exemplar e12 = new Exemplar();
-        Software s2 = (Software) itf.findAll().get(5);
+        Software s2 = (Software) itf.findAll().get(6);
         e12.setItem(s2);
         s2.addExemplar(e12);
         e12.setDisponivel(true);
