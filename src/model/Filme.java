@@ -14,19 +14,8 @@ import javax.persistence.ManyToMany;
 public class Filme extends Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
 
-    private String categoria; //String ou enum?
+    private String categoria;
     private String produtora;
 
     @ManyToMany(cascade = ALL, fetch = FetchType.EAGER)

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.util.ArrayList;
@@ -11,12 +6,6 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Reserva;
 
-
-
-/**
- *
- * @author charleshenriqueportoferreira
- */
 public class ReservaTableModel extends AbstractTableModel {
 
     /* Lista de Reservas que representam as linhas. */
@@ -117,7 +106,7 @@ public class ReservaTableModel extends AbstractTableModel {
         fireTableCellUpdated(rowIndex, 0);
         fireTableCellUpdated(rowIndex, 1);
         fireTableCellUpdated(rowIndex, 2);
-        
+
     }
 
     @Override

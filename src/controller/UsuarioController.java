@@ -7,10 +7,6 @@ package controller;
 
 import facade.UsuarioFacade;
 
-/**
- *
- * @author charleshenriqueportoferreira
- */
 public class UsuarioController {
 
     public UsuarioFacade usuarioFacade;

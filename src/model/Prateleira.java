@@ -42,8 +42,6 @@ public class Prateleira implements Serializable {
         Literatura, História, Geografia, Matemática, Física, Química, Biologia, Inglês, Espanhol; 
     } 
 
-    
-
     @Override
     public int hashCode() {
         int hash = 0;

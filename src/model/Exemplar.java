@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.io.Serializable;
@@ -14,16 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-/**
- *
- * @author charles
- */
 @Entity
 public class Exemplar implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //Como o exemplar tem um numero de controle interno da biblioteca, pensei em ser a própria chave primaria
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long IDBIB;
@@ -33,7 +23,6 @@ public class Exemplar implements Serializable {
 
     @ManyToOne(cascade = ALL, fetch = FetchType.EAGER)
     private Item item;
-
 
     private boolean disponivel;
 
@@ -49,9 +38,6 @@ public class Exemplar implements Serializable {
         return IDBIB;
     }
 
-    //public void setIDBIB(Long IDBIB) {
-    //  this.IDBIB = IDBIB;
-    //}
     public Prateleira getPrateleira() {
         return prateleira;
     }

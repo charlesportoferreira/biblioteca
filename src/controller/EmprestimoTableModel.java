@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.util.ArrayList;
@@ -11,10 +6,6 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Emprestimo;
 
-/**
- *
- * @author charleshenriqueportoferreira
- */
 public class EmprestimoTableModel extends AbstractTableModel {
 
     /* Lista de Emprestimo que representam as linhas. */
@@ -22,7 +13,7 @@ public class EmprestimoTableModel extends AbstractTableModel {
 
     /* Array de Strings com o nome das colunas. */
     private String[] colunas = new String[]{
-        "Exemplar", "Usuario", "Renovacoes", "Data Emprestimo", "Data Devolucao","Data Limite", "Multa"};
+        "Exemplar", "Usuario", "Renovacoes", "Data Emprestimo", "Data Devolucao", "Data Limite", "Multa"};
 
     /* Cria um EmprestimoTableModel vazio. */
     public EmprestimoTableModel() {
@@ -62,7 +53,6 @@ public class EmprestimoTableModel extends AbstractTableModel {
         return String.class;
     }
 
-  
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Emprestimo emprestimo = linhas.get(rowIndex);

@@ -10,36 +10,15 @@ import facade.LivroFacade;
 import facade.RevistaFacade;
 import facade.SoftwareFacade;
 import facade.UsuarioFacade;
-import java.util.List;
 import view.Login;
 import view.Menu;
 
 public class Biblioteca {
 
     public static void main(String[] args) {
-//        Date date = new Date();
-//        Instant inst = date.toInstant();
-//
-//        // Get the current time
-//        Instant instant = Instant.now();
-//        //Instant instant = Instant.ofEpochMilli(new Date().getTime());
-//        // Output format is ISO-8601
-//        Date newDate1 = Date.from(instant);
-//        System.out.println(instant);
-//        System.out.println(newDate1);
-//        Instant novo = instant.plus(Duration.ofDays(20));
-//        System.out.println(novo);
-//        Date newDate = Date.from(novo);
-//        System.out.println(newDate);
-        //System.exit(0);
+
         createDataSimulation();
-//        LivroFacade lf = new LivroFacade();
-//        Livro l = lf.find(51L);
-//        System.exit(0);
-        AutorFacade af = new AutorFacade();
-        Autor a = af.findAll().get(0);
-        System.exit(0);
-        //abrirLogin();
+        abrirLogin();
 
     }
 
@@ -108,7 +87,7 @@ public class Biblioteca {
 
     @SuppressWarnings("empty-statement")
     public static void createDataSimulation() {
-        
+
 //         *********   Criacao das categorias  *************************
         Categoria categoria1 = new Categoria();
         categoria1.setTipo("Funcionario");
@@ -183,7 +162,6 @@ public class Biblioteca {
         Autor autor2 = new Autor();
         autor2.setNome("autor2");
 
-        
         af.create(autor1);
         af.create(autor2);
         // ************************************************************
@@ -196,7 +174,6 @@ public class Biblioteca {
         ator2.setNome("ator2");
         Ator ator3 = new Ator();
         ator3.setNome("ator3");
-
 
         atf.create(ator1);
         atf.create(ator2);
@@ -211,7 +188,7 @@ public class Biblioteca {
         ItemFacade itf = new ItemFacade();
 //        List<Autor> autores = af.findAll();
 //        List<Ator> atores = atf.findAll();
-        
+
         Livro livro1 = new Livro();
         livro1.setAno(10);
         livro1.setEdicao(1);
@@ -220,9 +197,9 @@ public class Biblioteca {
         livro1.addAutor(a);
         Autor b = af.findAll().get(1);
         livro1.addAutor(b);
-        
+
         livro1.setTitulo("livro1");
-        
+
         a.addLivro(livro1);
         b.addLivro(livro1);
 
@@ -244,8 +221,6 @@ public class Biblioteca {
         d.addLivro(livro3);
         livro3.setTitulo("livro3");
 
-        
-        
         lf.edit(livro1);
         lf.edit(livro2);
         lf.edit(livro3);
@@ -256,7 +231,6 @@ public class Biblioteca {
         revista.setVolume(10);
         revista.setAno(2000);
 
-        
         rf.edit(revista);
 
         Filme filme1 = new Filme();
@@ -264,14 +238,13 @@ public class Biblioteca {
         filme1.setTitulo("Filme1");
         filme1.setProdutora("prodFilme1");
         ff.create(filme1);
-        
+
         Filme filme2 = new Filme();
         filme2.setAno(2014);
         filme2.setTitulo("Filme2");
         filme2.setProdutora("prodFilme2");
         ff.create(filme2);
-        
-        
+
         Ator at1 = atf.findAll().get(0);
         Ator at2 = atf.findAll().get(1);
         Filme f1 = ff.findAll().get(0);
@@ -282,7 +255,7 @@ public class Biblioteca {
         ff.edit(f1);
         atf.edit(at1);
         atf.edit(at2);
-        
+
         Ator at11 = atf.findAll().get(0);
         Filme f2 = ff.findAll().get(1);
         f2.addAtor(at11);
@@ -297,12 +270,11 @@ public class Biblioteca {
         software.setSistemaOperacional("LINUX");
         software.setVersao(1);
 
-        
         sf.edit(software);
 //        // ************************************************************
 //
 //        // *********   Criacao dos Exemplares  *************************
-        
+
         ExemplarFacade ef = new ExemplarFacade();
 //        List<Item> itens = itf.findAll();
 
@@ -314,7 +286,7 @@ public class Biblioteca {
         ef.edit(e1);
 
         Exemplar e2 = new Exemplar();
-        Livro l12 = (Livro) itf.findAll().get(0);  
+        Livro l12 = (Livro) itf.findAll().get(0);
         e2.setItem(l12);
         l12.addExemplar(e2);
         e2.setDisponivel(true);

@@ -45,6 +45,10 @@ public class CadastroUsuario extends javax.swing.JFrame {
         categoriaTableModel = new CategoriaTableModel();
         menuItemMenu = new JMenuItem("Menu", KeyEvent.VK_M);
         menuMenu.add(menuItemMenu);
+        
+        lblTipoUsuario.setText(usuario.getCategoria().getTipo() + "(a)");
+        lblNomeUsuario.setText(usuario.getNome());
+        
         menuItemMenu.addActionListener(new ActionListener() {
 
             @Override

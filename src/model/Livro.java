@@ -11,7 +11,6 @@ import javax.persistence.ManyToMany;
 import org.eclipse.persistence.annotations.Index;
 
 @Entity
-
 @DiscriminatorValue("Livro")
 public class Livro extends Item implements Serializable {
 

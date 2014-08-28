@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.util.ArrayList;
@@ -10,17 +5,13 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Autor;
 
-/**
- *
- * @author charleshenriqueportoferreira
- */
 public class AutorTableModel extends AbstractTableModel {
 
     /* Lista de Autors que representam as linhas. */
     private List<Autor> linhas;
 
     /* Array de Strings com o nome das colunas. */
-    private String[] colunas = new String[]{ "Nome"};
+    private String[] colunas = new String[]{"Nome"};
 
     /* Cria um AutorTableModel vazio. */
     public AutorTableModel() {
@@ -102,12 +93,9 @@ public class AutorTableModel extends AbstractTableModel {
         autor.setNome(aValue.getNome());
 
         fireTableCellUpdated(rowIndex, 0);
-       
 
     }
 
-    
-  
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;

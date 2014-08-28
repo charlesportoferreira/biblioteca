@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package controller;
 
 import java.util.ArrayList;
@@ -11,13 +5,9 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Categoria;
 
-/**
- *
- * @author charleshenriqueportoferreira
- */
-public class CategoriaTableModel extends AbstractTableModel{
-    
-     /* Lista de Categorias que representam as linhas. */
+public class CategoriaTableModel extends AbstractTableModel {
+
+    /* Lista de Categorias que representam as linhas. */
     private List<Categoria> linhas;
 
     /* Array de Strings com o nome das colunas. */
@@ -80,7 +70,7 @@ public class CategoriaTableModel extends AbstractTableModel{
                 return categoria.getDiasEmprestimo();
             case 2:
                 return categoria.isPrivilegiado();
-          
+
             default:
                 // Isto não deveria acontecer...  
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
@@ -98,8 +88,8 @@ public class CategoriaTableModel extends AbstractTableModel{
             case 1:
                 categoria.setDiasEmprestimo((int) aValue);
             case 2:
-                categoria.setPrivilegiado((boolean)aValue);
-            
+                categoria.setPrivilegiado((boolean) aValue);
+
             default:
             // Isto não deveria acontecer...               
         }
@@ -113,13 +103,11 @@ public class CategoriaTableModel extends AbstractTableModel{
         categoria.setTipo(aValue.getTipo());
         categoria.setDiasEmprestimo(aValue.getDiasEmprestimo());
         categoria.setPrivilegiado(aValue.isPrivilegiado());
-       
-        // item.setTel(aValue.getTel());  
 
+        // item.setTel(aValue.getTel());  
         fireTableCellUpdated(rowIndex, 0);
         fireTableCellUpdated(rowIndex, 1);
         fireTableCellUpdated(rowIndex, 2);
-        
 
     }
 
@@ -177,5 +165,5 @@ public class CategoriaTableModel extends AbstractTableModel{
     public boolean isEmpty() {
         return linhas.isEmpty();
     }
-    
+
 }

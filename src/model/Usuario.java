@@ -112,8 +112,6 @@ public class Usuario implements Serializable {
     public void setSenha(String senha) {
         this.senha = UsuarioControler.convertStringToMd5(senha);
     }
-    
-    
 
     @Override
     public int hashCode() {

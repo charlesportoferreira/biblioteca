@@ -5,11 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import model.Emprestimo;
-import model.Usuario;
 
 public class EmprestimoFacade extends AbstractFacade<Emprestimo> {
 
@@ -17,13 +13,11 @@ public class EmprestimoFacade extends AbstractFacade<Emprestimo> {
 
     @Override
     protected EntityManager getEntityManager() {
-        // if (em != null) {
-        //   return em;
-        //} else {
+        
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
         em = emf.createEntityManager();
         return em;
-        //}
+       
     }
 
     public EmprestimoFacade() {

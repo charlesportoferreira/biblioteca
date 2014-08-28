@@ -12,14 +12,11 @@ public class ExemplarFacade extends AbstractFacade<Exemplar> {
 
     @Override
     protected EntityManager getEntityManager() {
-//        em = null;
-//        if (em != null) {
-//            return em;
-//        } else {
+
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliotecaPU");
             em = emf.createEntityManager();
             return em;
-        //}
+ 
     }
 
     public ExemplarFacade() {

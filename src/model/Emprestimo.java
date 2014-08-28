@@ -1,8 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,29 +11,28 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
-
 @Entity
 public class Emprestimo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @OneToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Exemplar exemplar;
-    
-    @OneToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Usuario usuario;
-    
+
     private boolean finalizado;
-    
-    
+
     private int qtdRenovacoes;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataEmprestimo;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataDevolucao;
-    
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataLimite;
 
@@ -46,7 +43,7 @@ public class Emprestimo implements Serializable {
     public void setDataLimite(Date dataLimite) {
         this.dataLimite = dataLimite;
     }
-    
+
     private double multa;
 
     public boolean isFinalizado() {
@@ -56,9 +53,7 @@ public class Emprestimo implements Serializable {
     public void setFinalizado(boolean finalizado) {
         this.finalizado = finalizado;
     }
-    
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -114,8 +109,6 @@ public class Emprestimo implements Serializable {
     public void setMulta(double multa) {
         this.multa = multa;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -141,5 +134,5 @@ public class Emprestimo implements Serializable {
     public String toString() {
         return "model.Emprestimo[ id=" + id + " ]";
     }
-    
+
 }

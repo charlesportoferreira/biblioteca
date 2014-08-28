@@ -7,20 +7,10 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("Software")
 public class Software extends Item implements Serializable {
+
     private static final long serialVersionUID = 1L;
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-    
-    private int versao; //Int ou String?
+
+    private int versao;
     private String sistemaOperacional;
     private String fabricante;
     private String requisitosInstalacao;
@@ -65,7 +55,7 @@ public class Software extends Item implements Serializable {
     public void setAnoCompra(int anoCompra) {
         this.anoCompra = anoCompra;
     }
- 
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -90,5 +80,5 @@ public class Software extends Item implements Serializable {
     public String toString() {
         return "model.Software[ id=" + super.getId() + " ]";
     }
-    
+
 }
